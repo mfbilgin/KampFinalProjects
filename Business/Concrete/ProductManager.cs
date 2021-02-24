@@ -12,30 +12,40 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.CCS;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        IProductDal _productDal;
-
-        public ProductManager(IProductDal productDal)
+        private IProductDal _productDal;
+        private ILogger _logger;
+        public ProductManager(IProductDal productDal, ILogger logger)
         {
             _productDal = productDal;
+            _logger = logger;
         }
 
         
-        [ValidationAspect(typeof(ProductValidator))]
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            //business codes
+            _logger.Log();  
+            try
+            {
+                //business codes
 
-            _productDal.Add(product);
+                _productDal.Add(product);
 
-            return new SuccessResult(Messages.ProductAdded);
+                return new SuccessResult(Messages.ProductAdded);
+            }
+            catch (Exception exception)
+            {
+                _logger.Log();
+            }
+
+            return new ErrorResult();
         }
-
-        
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 1)
