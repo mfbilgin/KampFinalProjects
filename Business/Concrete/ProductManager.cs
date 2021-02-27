@@ -22,7 +22,7 @@ namespace Business.Concrete
             _categoryService = categoryService;
 
         }
-
+        //Claim : İddia Etmek, yetkilendirme key'i.
         
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
