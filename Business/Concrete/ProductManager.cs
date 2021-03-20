@@ -14,6 +14,7 @@ using System.Linq;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Performance;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -30,7 +31,7 @@ namespace Business.Concrete
 
         //00.25 Dersteyiz
         //Claim
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         [PerformanceAspect(7)]
